@@ -8,7 +8,15 @@ import { Post } from 'src/app/interfaces/interfaces';
 })
 export class PostComponent implements OnInit {
 @Input() post: Post = {};
-  constructor() { }
+
+public img1;
+public img2;
+public img3;
+  constructor() {
+    this.img1 = '/assets/perro-1.jpg';
+    this.img2 = '/assets/perro-2.jpg';
+    this.img3 = '/assets/perro-3.jpg';
+  }
 
   ngOnInit() {
   }
