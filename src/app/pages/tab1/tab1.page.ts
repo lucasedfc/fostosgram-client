@@ -18,9 +18,23 @@ export class Tab1Page implements OnInit {
   }
 
   ngOnInit() {
+    this.loadData();
+  }
+
+
+
+  loadData(event?) {
+
     this.postService.getPost().subscribe(resp => {
-      console.log(resp.posts[0].user);
       this.post.push(...resp.posts);
+
+      if (event) {
+        event.target.complete();
+
+        if (resp.posts.length === 0) {
+          event.target.disabled = true;
+        }
+      }
     });
   }
 
