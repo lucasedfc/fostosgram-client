@@ -15,8 +15,9 @@ export class PortsService {
 
   constructor(private http: HttpClient) { }
 
-  getPost() {
-    this.postPage++;
+  getPost(pull: boolean = false) {
+
+    pull ? this.postPage = 0 : this.postPage++;
     return this.http.get<PostResponse>(`${URL}/posts/?page=${this.postPage}`);
   }
 }

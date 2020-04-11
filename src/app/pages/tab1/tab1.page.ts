@@ -10,6 +10,7 @@ import { Post } from 'src/app/interfaces/interfaces';
 export class Tab1Page implements OnInit {
 
   post: Post[] = [];
+  enable = true;
 
   constructor(
     private postService: PortsService
@@ -21,21 +22,26 @@ export class Tab1Page implements OnInit {
     this.loadData();
   }
 
+  loadData(event?, pull: boolean = false) {
 
-
-  loadData(event?) {
-
-    this.postService.getPost().subscribe(resp => {
+    this.postService.getPost(pull).subscribe(resp => {
+      console.log(resp.posts);
       this.post.push(...resp.posts);
 
       if (event) {
         event.target.complete();
 
         if (resp.posts.length === 0) {
-          event.target.disabled = true;
+          this.enable = false;
         }
       }
     });
+  }
+
+  doRefresh(event) {
+    this.enable = true;
+    this.post = [];
+    this.loadData(event, true);
   }
 
 }
