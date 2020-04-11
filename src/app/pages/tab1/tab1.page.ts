@@ -1,5 +1,6 @@
 import { PortsService } from './../../services/ports.service';
 import { Component, OnInit } from '@angular/core';
+import { Post } from 'src/app/interfaces/interfaces';
 
 @Component({
   selector: 'app-tab1',
@@ -7,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page implements OnInit {
+
+  post: Post[] = [];
 
   constructor(
     private postService: PortsService
@@ -16,7 +19,8 @@ export class Tab1Page implements OnInit {
 
   ngOnInit() {
     this.postService.getPost().subscribe(resp => {
-      console.log(resp);
+      console.log(resp.posts[0].user);
+      this.post.push(...resp.posts);
     });
   }
 

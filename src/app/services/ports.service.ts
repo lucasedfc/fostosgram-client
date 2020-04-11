@@ -1,3 +1,4 @@
+import { PostResponse } from './../interfaces/interfaces';
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -16,6 +17,6 @@ export class PortsService {
 
   getPost() {
     this.postPage++;
-    return this.http.get(`${URL}/posts/?page=${this.postPage}`);
+    return this.http.get<PostResponse>(`${URL}/posts/?page=${this.postPage}`);
   }
 }
