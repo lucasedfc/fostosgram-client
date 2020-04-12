@@ -4,6 +4,7 @@ import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Storage } from '@ionic/storage';
+import { resolve } from 'url';
 
 const URL = environment.url;
 
@@ -25,7 +26,8 @@ export class UserService {
 
     const data = {email, password};
 
-    return new Promise(resolve => {
+    // tslint:disable-next-line:no-shadowed-variable
+    return new Promise( resolve => {
       this.http.post(`${URL}/user/login`, data)
       .subscribe(resp => {
         console.log(resp);
@@ -53,6 +55,7 @@ export class UserService {
   register(user: User) {
 
 
+    // tslint:disable-next-line:no-shadowed-variable
     return new Promise(resolve => {
       this.http.post(`${URL}/user/create`, user)
       .subscribe(resp => {
@@ -92,6 +95,7 @@ export class UserService {
       'x-token': this.token
     });
 
+    // tslint:disable-next-line:no-shadowed-variable
     return new Promise<boolean>( resolve => {
       this.http.get(`${URL}/user/`, {headers}).subscribe(
         resp => {
@@ -106,5 +110,29 @@ export class UserService {
         }
         });
     });
+  }
+
+  updateUser(user: User) {
+
+    const headers = new HttpHeaders({
+      'x-token': this.token
+    });
+
+    // tslint:disable-next-line:no-shadowed-variable
+    return new Promise( resolve => {
+      this.http.post(`${URL}/user/update`, user, { headers }).subscribe(
+        resp => {
+          console.log(resp);
+          // tslint:disable-next-line:no-string-literal
+          if (resp['ok']) {
+            // tslint:disable-next-line:no-string-literal
+            this.saveToken(resp['token']);
+            resolve(true);
+          } else {
+            resolve(false);
+          }
+        });
+    });
+
   }
 }
