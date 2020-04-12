@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { IonSlides, NavController } from '@ionic/angular';
 import { UserService } from 'src/app/services/user.service';
+import { UiServiceService } from 'src/app/services/ui-service.service';
 
 @Component({
   selector: 'app-login',
@@ -59,7 +60,8 @@ export class LoginPage implements OnInit {
 
   constructor(
     private userService: UserService,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private uiService: UiServiceService
   ) { }
 
   ngOnInit() {
@@ -73,7 +75,7 @@ export class LoginPage implements OnInit {
     if (success) {
       this.navCtrl.navigateRoot('/main/tabs/tab1', {animated: true});
     } else {
-
+      this.uiService.presentAlert('User or password');
     }
 
   }
