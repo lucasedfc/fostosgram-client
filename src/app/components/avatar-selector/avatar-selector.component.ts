@@ -56,7 +56,6 @@ export class AvatarSelectorComponent implements OnInit {
   selectAvatar(avatar) {
     this.avatars.forEach(av => av.selected = false);
     avatar.selected = true;
-    console.log(avatar.img);
     this.avatarSelected.emit(avatar.img);
   }
 }
