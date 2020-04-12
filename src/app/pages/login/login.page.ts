@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { IonSlides } from '@ionic/angular';
+import { IonSlides, NavController } from '@ionic/angular';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -58,18 +58,23 @@ export class LoginPage implements OnInit {
 
 
   constructor(
-    private userService: UserService
+    private userService: UserService,
+    private navCtrl: NavController
   ) { }
 
   ngOnInit() {
     this.slides.lockSwipes(true);
   }
 
-  login(fLogin: NgForm) {
+  async login(fLogin: NgForm) {
     if (fLogin.invalid) { return; }
+    const success = await this.userService.login(this.loginUser.email, this.loginUser.password);
 
-    console.log(this.loginUser);
-    this.userService.login(this.loginUser.email, this.loginUser.password);
+    if (success) {
+      this.navCtrl.navigateRoot('/main/tabs/tab1', {animated: true});
+    } else {
+
+    }
 
   }
 
