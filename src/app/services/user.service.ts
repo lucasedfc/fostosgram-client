@@ -13,7 +13,7 @@ const URL = environment.url;
 export class UserService {
 
   token: string = null;
-  user: User = {};
+  private user: User = {};
 
   constructor(
     private http: HttpClient,
@@ -41,6 +41,13 @@ export class UserService {
         }
       });
     });
+  }
+
+  getUser() {
+    if (!this.user._id) {
+      this.validateToken();
+    }
+    return { ...this.user};
   }
 
   register(user: User) {
