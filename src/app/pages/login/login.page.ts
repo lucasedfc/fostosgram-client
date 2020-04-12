@@ -1,3 +1,4 @@
+import { User } from './../../interfaces/interfaces';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { IonSlides, NavController } from '@ionic/angular';
@@ -57,6 +58,12 @@ export class LoginPage implements OnInit {
     password: 'test'
   };
 
+  userRegister: User = {
+    email: 'test4@test.com',
+    password: '123456',
+    name: 'Test'
+  };
+
 
   constructor(
     private userService: UserService,
@@ -80,8 +87,19 @@ export class LoginPage implements OnInit {
 
   }
 
-  register(fRegister: NgForm) {
+  async register(fRegister: NgForm) {
     console.log(fRegister.valid);
+    if (fRegister.invalid) {
+      return;
+    }
+
+    const success = await this.userService.register(this.userRegister);
+
+    if (success) {
+      this.navCtrl.navigateRoot('/main/tabs/tab1', {animated: true});
+    } else {
+      this.uiService.presentAlert('User already exist');
+    }
   }
 
   selectAvatar(avatar) {

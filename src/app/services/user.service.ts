@@ -1,3 +1,4 @@
+import { User } from './../interfaces/interfaces';
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -23,6 +24,27 @@ export class UserService {
 
     return new Promise(resolve => {
       this.http.post(`${URL}/user/login`, data)
+      .subscribe(resp => {
+        console.log(resp);
+        // tslint:disable-next-line:no-string-literal
+        if (resp['ok']) {
+          // tslint:disable-next-line:no-string-literal
+          this.saveToken(resp['token']);
+          resolve(true);
+        } else {
+          this.token = null;
+          this.storage.clear();
+          resolve(false);
+        }
+      });
+    });
+  }
+
+  register(user: User) {
+
+
+    return new Promise(resolve => {
+      this.http.post(`${URL}/user/create`, user)
       .subscribe(resp => {
         console.log(resp);
         // tslint:disable-next-line:no-string-literal
