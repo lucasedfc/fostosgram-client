@@ -14,44 +14,7 @@ export class LoginPage implements OnInit {
 
   @ViewChild('principalSlide', { static: true }) slides: IonSlides;
 
-  avatars = [
-    {
-      img: 'av-1.png',
-      selected: true
-    },
-    {
-      img: 'av-2.png',
-      selected: false
-    },
-    {
-      img: 'av-3.png',
-      selected: false
-    },
-    {
-      img: 'av-4.png',
-      selected: false
-    },
-    {
-      img: 'av-5.png',
-      selected: false
-    },
-    {
-      img: 'av-6.png',
-      selected: false
-    },
-    {
-      img: 'av-7.png',
-      selected: false
-    },
-    {
-      img: 'av-8.png',
-      selected: false
-    },
-  ];
 
-  avatarSlide = {
-    slidesPerView: 3
-  };
 
   loginUser = {
     email: 'test2@test2.com',
@@ -61,7 +24,8 @@ export class LoginPage implements OnInit {
   userRegister: User = {
     email: 'test4@test.com',
     password: '123456',
-    name: 'Test'
+    name: 'Test',
+    avatar: 'av-1.png'
   };
 
 
@@ -102,10 +66,7 @@ export class LoginPage implements OnInit {
     }
   }
 
-  selectAvatar(avatar) {
-    this.avatars.forEach(av => av.selected = false);
-    avatar.selected = true;
-  }
+
 
   showRegister() {
     this.slides.lockSwipes(false);
