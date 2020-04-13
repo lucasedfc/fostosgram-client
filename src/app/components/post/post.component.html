@@ -14,7 +14,7 @@
 
   <!--If imgs-->
 
-  <ion-slides pager="true">
+<!--   <ion-slides pager="true">
     <ion-slide class="image-slide"
     [style]=" img1 | domSanitizer">
     </ion-slide>
@@ -26,9 +26,10 @@
     </ion-slide>
     
     
-  </ion-slides>
+  </ion-slides> -->
 
   <!--Map-->
+  <app-map [coords]="post.coords"></app-map>
 
   <ion-item lines="none">
     <ion-icon slot="start" name="heart-outline"></ion-icon>

@@ -1,3 +1,4 @@
+import { MapComponent } from './map/map.component';
 import { AvatarSelectorComponent } from './avatar-selector/avatar-selector.component';
 import { PipesModule } from './../pipes/pipes.module';
 import { IonicModule } from '@ionic/angular';
@@ -9,7 +10,7 @@ import { CommonModule } from '@angular/common';
 
 
 @NgModule({
-  declarations: [PostsComponent, PostComponent, AvatarSelectorComponent],
+  declarations: [PostsComponent, PostComponent, AvatarSelectorComponent, MapComponent],
   imports: [
     CommonModule,
     IonicModule,
