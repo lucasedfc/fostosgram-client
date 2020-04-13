@@ -1,4 +1,4 @@
-import { PortsService } from './../../services/ports.service';
+import { PostsService } from '../../services/post.service';
 import { Component, OnInit } from '@angular/core';
 import { Post } from 'src/app/interfaces/interfaces';
 
@@ -13,13 +13,18 @@ export class Tab1Page implements OnInit {
   enable = true;
 
   constructor(
-    private postService: PortsService
+    private postService: PostsService
   ) {
 
   }
 
   ngOnInit() {
     this.loadData();
+
+    this.postService.newPost.subscribe(
+      post => {
+        this.post.unshift(post);
+      });
   }
 
   loadData(event?, pull: boolean = false) {
