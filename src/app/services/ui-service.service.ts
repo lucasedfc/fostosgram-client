@@ -24,7 +24,7 @@ export class UiServiceService {
     const toast = await this.toastController.create({
       message: msg,
       duration: 2000,
-      position: 'bottom',
+      position: 'top',
       buttons: [
         {
           side: 'start',
