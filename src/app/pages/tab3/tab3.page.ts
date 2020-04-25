@@ -1,3 +1,4 @@
+import { PostsService } from './../../services/post.service';
 import { NgForm } from '@angular/forms';
 import { User } from './../../interfaces/interfaces';
 import { Component, OnInit } from '@angular/core';
@@ -15,7 +16,8 @@ export class Tab3Page implements OnInit {
 
   constructor(
     private userService: UserService,
-    private UiService: UiServiceService
+    private UiService: UiServiceService,
+    private postService: PostsService
   ) {}
 
   ngOnInit() {
@@ -23,6 +25,8 @@ export class Tab3Page implements OnInit {
   }
 
   logout() {
+    this.postService.postPage = 0;
+    this.userService.logout();
 
   }
 

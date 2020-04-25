@@ -29,12 +29,12 @@ export class UserService {
     // tslint:disable-next-line:no-shadowed-variable
     return new Promise( resolve => {
       this.http.post(`${URL}/user/login`, data)
-      .subscribe(resp => {
+      .subscribe(async resp => {
         console.log(resp);
         // tslint:disable-next-line:no-string-literal
         if (resp['ok']) {
           // tslint:disable-next-line:no-string-literal
-          this.saveToken(resp['token']);
+          await this.saveToken(resp['token']);
           resolve(true);
         } else {
           this.token = null;
@@ -58,12 +58,12 @@ export class UserService {
     // tslint:disable-next-line:no-shadowed-variable
     return new Promise(resolve => {
       this.http.post(`${URL}/user/create`, user)
-      .subscribe(resp => {
+      .subscribe(async resp => {
         console.log(resp);
         // tslint:disable-next-line:no-string-literal
         if (resp['ok']) {
           // tslint:disable-next-line:no-string-literal
-          this.saveToken(resp['token']);
+          await this.saveToken(resp['token']);
           resolve(true);
         } else {
           this.token = null;
@@ -77,6 +77,7 @@ export class UserService {
   async saveToken(token: string) {
     this.token = token;
     await this.storage.set('token', token);
+    await this.validateToken();
   }
 
   async loadToken() {
@@ -134,5 +135,12 @@ export class UserService {
         });
     });
 
+  }
+
+  logout() {
+    this.token = null;
+    this.user = null;
+    this.storage.clear();
+    this.navController.navigateRoot('/login', {animated: true});
   }
 }
